@@ -4,6 +4,10 @@
 * This class helps you upload the image via WordPress API easily.
 * The parameter array settings sample:
 * $settings = ['name' => [], 'title' => [], 'content' => [], 'type' => []]
+* uploadImage: upload the image.
+* getImageId: get the current image id.
+* getImageUrlById: get the current image url by id.
+*
 */
 
 namespace peter\WordPress;
@@ -17,8 +21,8 @@ class UploadImg {
         $this->settings = $settings;
     }
 
-    private function uploadImage($postId) {
-        $resultMsg = 'Upload images is successful.';
+    public function uploadImage($postId) {
+        $resultArr = [];
 
         if(!array_key_exists(['name', 'title', 'content'], $this->settings)) {
             echo 'The upload image error';
@@ -26,7 +30,12 @@ class UploadImg {
         $images = $this->settings['name'];
         $uploadDir = wp_upload_dir();
         for($index=0;$index<count($this->setting['name']);$index++) {
+            $resultMsg = 'Upload images is successful.';
             $name = $this->setting['name'][$index];
+            if(!file_exists($name)) {
+                $resultArr[] = $name.' is not found.Skip...';
+                continue;
+            }
             $type = $this->setting['type'][$index];
             $title = $this->setting['title'][$index];
             $content = $this->setting['content'][$index];
@@ -44,18 +53,20 @@ class UploadImg {
             $result = $this->validateId($id);
             if(!$result) {
                 $resultMsg = 'Failed to upload images API via WordPress API.';
+                $resultArr[] = $resultMsg;
+            } else {
+                $resultArr[] = $imageId;
             }
 
             // Generate the metadata for the attachment, and update the database record.
             $attachData = wp_generate_attachment_metadata($imageId, $name);
 
             wp_update_attachment_metadata($imageId, $attachData);
-
-            return $resultMsg;
         }
+        return $resultArr;
     }
 
-    public function getImageId() {
-        return $this->imageId;
+    public function getImageUrlById($imageId) {
+        return wp_get_attachment_url($imageId);
     }
 }

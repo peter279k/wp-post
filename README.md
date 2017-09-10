@@ -7,6 +7,8 @@ You can also check out the ```main.php``` and the PHP file which is in the ```sr
 
 ## The files introduction
 
+You can see the ```main.php``` to know more details about using this classes.
+
 - ```main.php```: The main functionality to call the calsses from ```src``` folder.
 - ```Valid.php```: The class is to validate the post id and image id.
 - ```Post.php``` is to post the feed via WordPress API.

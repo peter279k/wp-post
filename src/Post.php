@@ -2,6 +2,10 @@
 
 /*
 * This class can post the feed via WordPress API
+* postFeed method: post the new feed.
+* update post: update the existed feed.
+* getId: get the current post id.
+* getPostUrlById: get the current post url by id.
 */
 
 namespace peter\WordPress;
@@ -40,7 +44,15 @@ class Post {
         return $resultMsg;
     }
 
+    public function updatePost($postId, $postTitle, $postContent, $postCategory) {
+
+    }
+
     public function getId() {
         return $this->id;
+    }
+
+    public function getPostUrlById() {
+        return get_permalink($this->id);
     }
 }
