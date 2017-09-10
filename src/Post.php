@@ -28,7 +28,7 @@ class Post {
             'post_type'     => 'post',
             'post_status'   => 'publish',
         ]);
-        $result = $this->validateId($id);
+        $result = Valid::validateId($id);
         $resultMsg = $id;
         if(!$result) {
             $resultMsg = 'Failed to post feed via WordPress API.';
