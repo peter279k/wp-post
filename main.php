@@ -28,4 +28,5 @@ $post = new Post('Test post', '<h2>This is the test post via WordPress API</h2>'
 
 if($post->postFeed() === 'Post feed is successful.') {
     //$upload = new UploadImg($post);
+    echo 'success...'.PHP_EOL;
 }
