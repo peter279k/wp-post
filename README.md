@@ -11,3 +11,11 @@ You can also check out the ```main.php``` and the PHP file which is in the ```sr
 - ```Valid.php```: The class is to validate the post id and image id.
 - ```Post.php``` is to post the feed via WordPress API.
 - ```UploadImg.php```: The class is to upload the images via WordPress API.
+
+## Usage
+
+- using ssh to login your VPS or shared hosting server.
+- ```cd /path/to/your-wodpress-root-path.
+- using the ```git clone https://github.com/peter279k/wp-post``` to clone this repo.
+- modify the title and content in line 27.
+- using the ```php main.php``` to test the posting feed.

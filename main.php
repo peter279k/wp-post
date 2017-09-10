@@ -11,8 +11,8 @@ if(defined('ABSPATH') === false) {
     define('ABSPATH', '/home/ahonginf/www/');
 }
 
-require_once 'wp-admin/includes/post.php';
-require_once 'wp-admin/includes/image.php';
+require_once __DIR__.'/../wp-admin/includes/post.php';
+require_once __DIR__.'/../wp-admin/includes/image.php';
 
 // include the Post and UploadImg class
 require_once __DIR__.'/src/Valid.php';
