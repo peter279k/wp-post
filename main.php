@@ -17,7 +17,7 @@ require_once __DIR__.'/../wp-admin/includes/image.php';
 // include the Post and UploadImg class
 require_once __DIR__.'/src/Valid.php';
 require_once __DIR__.'/src/Post.php';
-require_once __DIR__.'src/UploadImg.php';
+require_once __DIR__.'/src/UploadImg.php';
 
 date_default_timezone_set('Asia/Taipei');
 
