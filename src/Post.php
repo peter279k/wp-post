@@ -11,11 +11,13 @@ class Post {
     private $postTitle = '';
     private $postContent = '';
     private $postName = '';
+    private $postCategory = [];
 
-    public function __construct($postTitle, $postContent, $postName) {
+    public function __construct($postTitle, $postContent, $postName, $postCategory = []) {
         $this->postTitle = $postTitle;
         $this->postContent = $postContent;
         $this->postName = $postName;
+        $this->postCategory = $postCategory;
     }
 
     public function postFeed() {
@@ -26,10 +28,9 @@ class Post {
             'post_author'   => $this->postName,
             'post_type'     => 'post',
             'post_status'   => 'publish',
-            'post_category' => [],
+            'post_category' => $this->postCategory,
         ]);
         $result = Valid::validateId($id);
-        $resultMsg = $id;
         if(!$result) {
             $resultMsg = 'Failed to post feed via WordPress API.';
         }
