@@ -8,7 +8,7 @@
 namespace peter\WordPress;
 
 class Valid {
-    public static function validateId(\integer $id) {
+    public static function validateId($id) {
         $result = true;
         if(empty($id)) {
             $result = false;

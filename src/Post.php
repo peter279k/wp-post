@@ -21,12 +21,13 @@ class Post {
     public function postFeed() {
         $resultMsg = 'Post feed is successful.';
         $id = wp_insert_post([
-            'post_title'    => $postTitle,
-            'post_content'  => $postContent,
+            'post_title'    => $this->postTitle,
+            'post_content'  => $this->postContent,
             'post_date'     => date('Y-m-d H:i:s'),
-            'post_author'   => $postName,
+            'post_author'   => $this->postName,
             'post_type'     => 'post',
             'post_status'   => 'publish',
+            'post_category' => [],
         ]);
         $result = Valid::validateId($id);
         $resultMsg = $id;
