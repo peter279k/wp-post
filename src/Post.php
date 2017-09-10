@@ -23,7 +23,6 @@ class Post {
         $id = wp_insert_post([
             'post_title'    => $this->postTitle,
             'post_content'  => $this->postContent,
-            'post_date'     => date('Y-m-d H:i:s'),
             'post_author'   => $this->postName,
             'post_type'     => 'post',
             'post_status'   => 'publish',
