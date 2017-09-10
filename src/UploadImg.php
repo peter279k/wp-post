@@ -11,6 +11,7 @@ namespace peter\WordPress;
 class UploadImg {
 
     private $settings = [];
+    private $imageId = 0;
 
     public function __construct(array $settings) {
         $this->settings = $settings;
@@ -38,6 +39,7 @@ class UploadImg {
             );
 
             $imageId = wp_insert_attachment($attachment, $name, $postId);
+            $this->imageId = $imageId;
 
             $result = $this->validateId($id);
             if(!$result) {
@@ -51,5 +53,9 @@ class UploadImg {
 
             return $resultMsg;
         }
+    }
+
+    public function getImageId() {
+        return $this->imageId;
     }
 }

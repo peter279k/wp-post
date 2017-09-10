@@ -25,9 +25,14 @@ date_default_timezone_set('Asia/Taipei');
 use peter\WordPress\Post;
 use peter\WordPress\UploadImg;
 
-$post = new Post('Test post', '<h2>This is the test post via WordPress API</h2>', '');
+$title = 'Test post';
+$content = '<h2>This is the test post via WordPress API</h2>';
+$postName = '';
+$category = [];
+
+$post = new Post($title, $content, $postName, $category);
 
 if($post->postFeed() === 'Post feed is successful.') {
     //$upload = new UploadImg($post);
-    echo 'success...'.PHP_EOL;
+    echo $post->getId().PHP_EOL;
 }

@@ -12,6 +12,7 @@ class Post {
     private $postContent = '';
     private $postName = '';
     private $postCategory = [];
+    private $id = 0;
 
     public function __construct($postTitle, $postContent, $postName, $postCategory = []) {
         $this->postTitle = $postTitle;
@@ -30,11 +31,16 @@ class Post {
             'post_status'   => 'publish',
             'post_category' => $this->postCategory,
         ]);
+        $this->id = $id;
         $result = Valid::validateId($id);
         if(!$result) {
             $resultMsg = 'Failed to post feed via WordPress API.';
         }
 
         return $resultMsg;
+    }
+
+    public function getId() {
+        return $this->id;
     }
 }
