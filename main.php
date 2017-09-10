@@ -6,6 +6,7 @@
 * And it will automatically do the post via WordPress API.
 */
 
+// show the runtime error
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -24,7 +25,7 @@ date_default_timezone_set('Asia/Taipei');
 use peter\WordPress\Post;
 use peter\WordPress\UploadImg;
 
-$post = new Post('Test post', '<h2>This is the test post via WordPress API</h2>', '');
+$post = new Post('Test post', '<h2>This is the test post via WordPress API</h2>', 'ahong');
 
 if($post->postFeed() === 'Post feed is successful.') {
     //$upload = new UploadImg($post);
