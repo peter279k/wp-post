@@ -18,7 +18,7 @@ class Post {
         $this->postName = $postName;
     }
 
-    private function postFeed() {
+    public function postFeed() {
         $resultMsg = 'Post feed is successful.';
         $id = wp_insert_post([
             'post_title'    => $postTitle,
