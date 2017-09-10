@@ -6,11 +6,6 @@
 * And it will automatically do the post via WordPress API.
 */
 
-// include the wordpress library(absolute path)
-if(defined('ABSPATH') === false) {
-    define('ABSPATH', '/home/ahonginf/www/');
-}
-
 require_once __DIR__.'/../wp-admin/includes/post.php';
 require_once __DIR__.'/../wp-admin/includes/image.php';
 
