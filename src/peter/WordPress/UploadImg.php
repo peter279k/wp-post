@@ -54,14 +54,17 @@ class UploadImg {
 
             if( $response['response']['code'] != 200 ) {
                 $this->resultArr[] = 'failed to fetch the image link.';
+                continue;
 
-            } else {
-                $fileName = basename($link);
-                $upload = wp_upload_bits($fileName, null, $response['body']);
-                $content = $this->settings['content'][$index];
-                if(!$upload['error']) {
-                    $this->handleResult($fileName, $postId, $content, $upload);
-                }
+            }
+
+            $fileName = basename($link);
+            $upload = wp_upload_bits($fileName, null, $response['body']);
+            $content = $this->settings['content'][$index];
+            $uploadDir = wp_upload_dir();
+            if(!$upload['error']) {
+                $guid = $uploadDir['url'].'/'.$fileName;
+                $this->handleResult($fileName, $postId, $content, $upload, $guid);
             }
         }
 
@@ -76,7 +79,7 @@ class UploadImg {
         return $this->imageId;
     }
 
-    private function handleResult($fileName, $postId, $content, $uploadFile) {
+    private function handleResult($fileName, $postId, $content, $uploadFile, $guid = '') {
         $fileType = wp_check_filetype($fileName, null);
         $attachment = [
             'post_mime_type' => $fileType['type'],
@@ -85,6 +88,9 @@ class UploadImg {
             'post_content' => $content,
             'post_status' => 'inherit',
         ];
+        if($guid === '') {
+            $attachment['guid'] = $wp_upload_dir['url'].'/'.$fileName;
+        }
         $attachmentId = wp_insert_attachment($attachment, $uploadFile['file'], $postId);
         if(!is_wp_error($attachmentId)) {
             $attachmentData = wp_generate_attachment_metadata($attachmentId, $uploadFile['file']);
