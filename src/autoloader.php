@@ -33,6 +33,6 @@ spl_autoload_register(function ($class) {
     if(file_exists($file)) {
         require_once $file;
     } else {
-        echo $file.' not found.';
+        echo 'The class file: '.$file.' is not found.';
     }
 });

@@ -41,7 +41,7 @@ $uploadInfo = [
 $upload = new UploadImg($uploadInfo);
 
 // call the UploadImg class to upload the images.
-$resultSet = $upload->uploadImage();
+$resultSet = $upload->uploadImageByUrl();
 
 foreach($resultSet as $value) {
     if((int)$value >= 0) {
