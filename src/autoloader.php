@@ -12,6 +12,7 @@ function autoloader($class) {
     $folders = ['/peter/WordPress/'];
     foreach($folders as $file) {
         $filePath = __DIR__.$file.$class.'.php';
+        require_once $filePath;
     }
 }
 
