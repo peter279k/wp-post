@@ -17,15 +17,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-require_once __DIR__.'/../wp-load.php';
-require_once __DIR__.'/../wp-admin/includes/post.php';
-require_once __DIR__.'/../wp-admin/includes/image.php';
-
 // include the Post and UploadImg class
 require_once __DIR__.'/src/autoloader.php';
-//require_once __DIR__.'/src/peter/WordPress/Post.php';
-//require_once __DIR__.'/src/peter/WordPress/UploadImg.php';
-//require_once __DIR__.'/src/peter/WordPress/Valid.php';
 
 date_default_timezone_set('Asia/Taipei');
 
@@ -45,11 +38,10 @@ $uploadInfo = [
     'type' => ['image/jpeg'],
 ];
 
-/*
 $upload = new UploadImg($uploadInfo);
 
 // call the UploadImg class to upload the images.
-$resultSet = $upload->uploadImage();
+$resultSet = $upload->uploadImageByUrl();
 
 foreach($resultSet as $value) {
     if((int)$value >= 0) {
@@ -59,6 +51,7 @@ foreach($resultSet as $value) {
     }
 }
 
+/*
 echo PHP_EOL;
 
 // call the Post class to post the feeds.

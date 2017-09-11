@@ -41,11 +41,31 @@ class UploadImg {
                 $this->handleResult($fileName, $postId, $content, $uploadFile);
             }
         }
+
         return $this->resultArr;
     }
 
     public function uploadImageByUrl($postId = 0) {
+        for($index=0;$index<count($this->settings['name']);$index++) {
+            $this->resultMsg = 'Upload images is successful.';
+            $link = $this->settings['name'][$index];
+            $http = new \WP_Http();
+            $response = $http->request($link);
 
+            if( $response['response']['code'] != 200 ) {
+                $this->resultArr[] = 'failed to fetch the image link.';
+
+            } else {
+                $fileName = basename($link);
+                $upload = wp_upload_bits($fileName, null, $response['body']);
+                $content = $this->settings['content'][$index];
+                if(!$upload['error']) {
+                    $this->handleResult($fileName, $postId, $content, $upload);
+                }
+            }
+        }
+
+        return $this->resultArr;
     }
 
     public function getImageUrlById($imageId) {
