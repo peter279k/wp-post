@@ -57,7 +57,11 @@ class UploadImg {
                 continue;
             }
 
-            echo $response['body'].PHP_EOL;
+            if(count(explode('?', $link)) !== 0) {
+                $val = explode('?', '$link')[0];
+            }
+            $fileNameArr = explode('/', $val);
+            $fileName = (count($fileNameArr)-1);
             $fileName = basename($link);
             $upload = wp_upload_bits($fileName, null, $response['body']);
             $content = $this->settings['content'][$index];
