@@ -55,6 +55,8 @@ class UploadImg {
             if($response['response']['code'] != 200) {
                 $this->resultArr[] = 'failed to fetch the image link.';
                 continue;
+            } else {
+                $this->resultArr[] = $response['response']['code'];
             }
 
             $fileName = basename($link);
@@ -64,6 +66,8 @@ class UploadImg {
             if(!$upload['error']) {
                 $guid = $uploadDir['url'].'/'.$fileName;
                 $this->handleResult($fileName, $postId, $content, $upload, $guid);
+            } else {
+                $this->resultArr[] = $upload['error'];
             }
         }
 
