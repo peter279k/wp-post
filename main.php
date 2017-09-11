@@ -38,7 +38,7 @@ $post = new Post($title, $content, $postName, $category);
 $uploadInfo = [
     'name' => ['14470520_1205931849474441_6469649795938442695_n.jpg'],
     'title' => ['image1'],
-    'content' => [],
+    'content' => ['content1'],
     'type' => ['image/jpeg'],
 ];
 $upload = new UploadImg($uploadInfo);
@@ -47,11 +47,7 @@ $upload = new UploadImg($uploadInfo);
 $resultSet = $upload->uploadImage();
 
 foreach($resultSet as $value) {
-    if(gettype($upload->uploadImage()) === 'integer') {
-        echo 'The image id is: '.$value.PHP_EOL;
-    } else {
-        echo $value.PHP_EOL;
-    }
+    echo $value.PHP_EOL;
 }
 
 echo PHP_EOL;
