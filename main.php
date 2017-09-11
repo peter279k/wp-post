@@ -32,7 +32,7 @@ $category = [];
 
 $post = new Post($title, $content, $postName, $category);
 $uploadInfo = [
-    'name' => ['https://scontent.ftpe7-1.fna.fbcdn.net/v/t1.0-9/14470520_1205931849474441_6469649795938442695_n.jpg?oh=e8e4245c44bf81fd6c02b779173a3913&oe=5A4C0FD7'],
+    'name' => ['14470520_1205931849474441_6469649795938442695_n.jpg'],
     'title' => ['image1'],
     'content' => ['content1'],
     'type' => ['image/jpeg'],
