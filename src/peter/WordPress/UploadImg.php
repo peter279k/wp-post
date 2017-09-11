@@ -54,10 +54,10 @@ class UploadImg {
 
             if($response['response']['code'] != 200) {
                 $this->resultArr[] = 'failed to fetch the image link.';
-                echo $response['body'].PHP_EOL;
                 continue;
             }
 
+            echo $response['body'].PHP_EOL;
             $fileName = basename($link);
             $upload = wp_upload_bits($fileName, null, $response['body']);
             $content = $this->settings['content'][$index];
