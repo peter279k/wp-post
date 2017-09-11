@@ -16,6 +16,8 @@ class UploadImg {
 
     private $settings = [];
     private $imageId = 0;
+    private $resultArr = [];
+    private $resultMsg = '';
 
     public function __construct(array $settings) {
         $this->settings = $settings;
@@ -25,48 +27,50 @@ class UploadImg {
     }
 
     public function uploadImage($postId = 0) {
-        $resultArr = [];
-
-        $uploadDir = wp_upload_dir();
         for($index=0;$index<count($this->settings['name']);$index++) {
-            $resultMsg = 'Upload images is successful.';
+            $this->resultMsg = 'Upload images is successful.';
             $name = $this->settings['name'][$index];
             if(!file_exists($name)) {
-                $resultArr[] = $name.' is not found.Skip...';
+                $this->resultArr[] = $name.' is not found.Skip...';
                 continue;
             }
-            $type = $this->settings['type'][$index];
-            $title = $this->settings['title'][$index];
+            $fileName = basename($name);
+            $uploadFile = wp_upload_bits($fileName, null, file_get_contents($name));
             $content = $this->settings['content'][$index];
-            $attachment = array(
-                'guid' => $uploadDir['url'].'/'.basename($name),
-                'post_mime_type' => $type,
-                'post_title' => $title,
-                'post_content' => $content,
-                'post_status' => 'inherit'
-            );
-
-            $imageId = wp_insert_attachment($attachment, $name, $postId);
-            $this->imageId = $imageId;
-
-            $result = $this->validateId($id);
-            if(!$result) {
-                $resultMsg = 'Failed to upload images API via WordPress API.';
-                $resultArr[] = $resultMsg;
-            } else {
-                $resultArr[] = $imageId;
+            if(!$uploadFile['error']) {
+                $this->handleResult($fileName, $postId, $content, $uploadFile);
             }
-
-            // Generate the metadata for the attachment, and update the database record.
-            $attachData = wp_generate_attachment_metadata($imageId, $name);
-
-            wp_update_attachment_metadata($imageId, $attachData);
         }
-        return $resultArr;
+        return $this->resultArr;
     }
 
     public function getImageUrlById($imageId) {
         return wp_get_attachment_url($imageId);
+    }
+
+    public function getImageId() {
+        return $this->imageId;
+    }
+
+    private function handleResult($fileName, $postId, $content, $uploadFile) {
+        $fileType = wp_check_filetype($fileName, null);
+        $attachment = [
+            'post_mime_type' => $fileType['type'],
+            'post_parent' => $postId,
+            'post_title' => preg_replace('/\.[^.]+$/', '', $fileName),
+            'post_content' => $content,
+            'post_status' => 'inherit',
+        ];
+        $attachmentId = wp_insert_attachment($attachment, $uploadFile['file'], $postId);
+        if(!is_wp_error($attachmentId)) {
+            $attachmentData = wp_generate_attachment_metadata($attachmentId, $uploadFile['file']);
+            wp_update_attachment_metadata($attachmentId,  $attachmentData);
+            $this->resultArr[] = $attachmentId;
+            $this->imageId = $attachmentId;
+        } else {
+            $this->resultMsg = 'Failed to upload images API via WordPress API.';
+            $this->resultArr[] = $this->resultMsg;
+        }
     }
 
     private function isKeyExist() {
