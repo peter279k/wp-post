@@ -88,7 +88,7 @@ class UploadImg {
     private function handleResult($fileName, $postId, $content, $uploadFile, $guid = '') {
         $fileType = wp_check_filetype($fileName, null);
         $attachment = [
-            'post_mime_type' => $fileType['type'],
+            'post_mime_type' => 'image/jpeg',
             'post_parent' => $postId,
             'post_title' => preg_replace('/\.[^.]+$/', '', $fileName),
             'post_content' => $content,
