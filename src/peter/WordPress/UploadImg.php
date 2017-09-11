@@ -58,14 +58,13 @@ class UploadImg {
             }
 
             $fileName = basename($link);
-            $fileName = explode('?', $val)[0];
-            echo $fileName.PHP_EOL;
-            $upload = wp_upload_bits($fileName, null, $response['body']);
+            $theFileName = explode('?', $fileName)[0];
+            $upload = wp_upload_bits($theFileName, null, $response['body']);
             $content = $this->settings['content'][$index];
             $uploadDir = wp_upload_dir();
             if(!$upload['error']) {
-                $guid = $uploadDir['url'].'/'.$fileName;
-                $this->handleResult($fileName, $postId, $content, $upload, $guid);
+                $guid = $uploadDir['url'].'/'.$theFileName;
+                $this->handleResult($theFileName, $postId, $content, $upload, $guid);
             } else {
                 echo $upload['error'].PHP_EOL;
             }
