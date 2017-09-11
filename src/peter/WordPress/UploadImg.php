@@ -52,8 +52,9 @@ class UploadImg {
             $http = new \WP_Http();
             $response = $http->request($link);
 
-            if($response['response']['code'] != 200 || $response['response']['code'] != 304) {
+            if($response['response']['code'] != 200) {
                 $this->resultArr[] = 'failed to fetch the image link.';
+                echo $response['body'].PHP_EOL;
                 continue;
             }
 
