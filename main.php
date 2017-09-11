@@ -50,7 +50,7 @@ $upload = new UploadImg($uploadInfo);
 $resultSet = $upload->uploadImage();
 
 foreach($resultSet as $value) {
-    if(gettype($upload->uploadImage()) === 'integer') {
+    if((int)$value >= 0) {
         echo 'The image id is: '.$value.PHP_EOL;
     } else {
         echo $value.PHP_EOL;
