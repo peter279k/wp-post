@@ -21,7 +21,7 @@ class UploadImg {
         $this->settings = $settings;
     }
 
-    public function uploadImage($postId) {
+    public function uploadImage($postId = 0) {
         $resultArr = [];
 
         if(!array_key_exists(['name', 'title', 'content'], $this->settings)) {
