@@ -63,6 +63,7 @@ class UploadImg {
             $fileNameArr = explode('/', $val);
             $fileName = (count($fileNameArr)-1);
             $fileName = basename($link);
+            echo $fileName.PHP_EOL;
             $upload = wp_upload_bits($fileName, null, $response['body']);
             $content = $this->settings['content'][$index];
             $uploadDir = wp_upload_dir();
@@ -88,7 +89,7 @@ class UploadImg {
     private function handleResult($fileName, $postId, $content, $uploadFile, $guid = '') {
         $fileType = wp_check_filetype($fileName, null);
         $attachment = [
-            'post_mime_type' => 'image/jpeg',
+            'post_mime_type' => $fileType['type'],
             'post_parent' => $postId,
             'post_title' => preg_replace('/\.[^.]+$/', '', $fileName),
             'post_content' => $content,
