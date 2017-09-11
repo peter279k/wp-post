@@ -19,15 +19,14 @@ class UploadImg {
 
     public function __construct(array $settings) {
         $this->settings = $settings;
+        if(!$this->isKeyExist()) {
+            echo 'The upload image error';
+        }
     }
 
     public function uploadImage($postId = 0) {
         $resultArr = [];
 
-        if(!array_key_exists(['name', 'title', 'content'], $this->settings)) {
-            echo 'The upload image error';
-        }
-        $images = $this->settings['name'];
         $uploadDir = wp_upload_dir();
         for($index=0;$index<count($this->setting['name']);$index++) {
             $resultMsg = 'Upload images is successful.';
@@ -68,5 +67,17 @@ class UploadImg {
 
     public function getImageUrlById($imageId) {
         return wp_get_attachment_url($imageId);
+    }
+
+    private function isKeyExist() {
+        $result = true;
+        $key = ['name', 'title', 'content', 'type'];
+        foreach($key as $val) {
+            if(!array_key_exists($val, $this->settings)) {
+                $result = false;
+            }
+        }
+
+        return $result;
     }
 }
