@@ -52,11 +52,9 @@ class UploadImg {
             $http = new \WP_Http();
             $response = $http->request($link);
 
-            if($response['response']['code'] != 200) {
+            if($response['response']['code'] != 200 || $response['response']['code'] != 304) {
                 $this->resultArr[] = 'failed to fetch the image link.';
                 continue;
-            } else {
-                $this->resultArr[] = $response['response']['code'];
             }
 
             $fileName = basename($link);
@@ -67,7 +65,7 @@ class UploadImg {
                 $guid = $uploadDir['url'].'/'.$fileName;
                 $this->handleResult($fileName, $postId, $content, $upload, $guid);
             } else {
-                $this->resultArr[] = $upload['error'];
+                echo $upload['error'].PHP_EOL;
             }
         }
 
