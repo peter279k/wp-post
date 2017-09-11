@@ -28,16 +28,16 @@ class UploadImg {
         $resultArr = [];
 
         $uploadDir = wp_upload_dir();
-        for($index=0;$index<count($this->setting['name']);$index++) {
+        for($index=0;$index<count($this->settings['name']);$index++) {
             $resultMsg = 'Upload images is successful.';
-            $name = $this->setting['name'][$index];
+            $name = $this->settings['name'][$index];
             if(!file_exists($name)) {
                 $resultArr[] = $name.' is not found.Skip...';
                 continue;
             }
-            $type = $this->setting['type'][$index];
-            $title = $this->setting['title'][$index];
-            $content = $this->setting['content'][$index];
+            $type = $this->settings['type'][$index];
+            $title = $this->settings['title'][$index];
+            $content = $this->settings['content'][$index];
             $attachment = array(
                 'guid' => $uploadDir['url'].'/'.basename($name),
                 'post_mime_type' => $type,

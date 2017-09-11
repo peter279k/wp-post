@@ -47,7 +47,11 @@ $upload = new UploadImg($uploadInfo);
 $resultSet = $upload->uploadImage();
 
 foreach($resultSet as $value) {
-    echo $value.PHP_EOL;
+    if(gettype($upload->uploadImage()) === 'integer') {
+        echo 'The image id is: '.$value.PHP_EOL;
+    } else {
+        echo $value.PHP_EOL;
+    }
 }
 
 echo PHP_EOL;
