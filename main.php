@@ -22,7 +22,7 @@ require_once __DIR__.'/../wp-admin/includes/post.php';
 require_once __DIR__.'/../wp-admin/includes/image.php';
 
 // include the Post and UploadImg class
-require_once __DIR__.'/../src/autoloader.php';
+require_once __DIR__.'/src/autoloader.php';
 
 date_default_timezone_set('Asia/Taipei');
 
