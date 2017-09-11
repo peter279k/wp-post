@@ -44,6 +44,10 @@ class UploadImg {
         return $this->resultArr;
     }
 
+    public function uploadImageByUrl($postId = 0) {
+
+    }
+
     public function getImageUrlById($imageId) {
         return wp_get_attachment_url($imageId);
     }

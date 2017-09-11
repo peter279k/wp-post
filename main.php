@@ -44,6 +44,8 @@ $uploadInfo = [
     'content' => ['content1'],
     'type' => ['image/jpeg'],
 ];
+
+/*
 $upload = new UploadImg($uploadInfo);
 
 // call the UploadImg class to upload the images.
